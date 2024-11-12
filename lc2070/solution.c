@@ -5,7 +5,41 @@
 #define MAX(x, y) ((x)>(y) ? (x) : (y))
 #define NMEM 100001
 
-int (*mem[NMEM])[2];
+struct entry
+{
+	int key, val;
+	struct entry *next;
+};
+typedef struct entry Entry;
+
+Entry *dict[NMEM];
+
+Entry *
+entryMake(int key, int val)
+{
+	Entry *e;
+	e = calloc(1, sizeof(*e));
+
+	e->key = key;
+	e->val = val;
+
+	return e;
+}
+
+Entry **
+lookup(int key)
+{
+	Entry **e = &dict[key%NMEM];
+
+	while (*e != NULL) {
+		if ((*e)->key == key)
+			return e;
+
+		e = &((*e)->next);
+	}
+
+	return e;
+}
 
 int
 cmpitems(const void *vp1, const void *vp2)
@@ -28,7 +62,7 @@ cmpitems(const void *vp1, const void *vp2)
 int *
 maximumBeauty(int **items, int nitems, int *mitems, int *queries, int nqueries, int *nanswer)
 {
-	memset(mem, 0, sizeof(mem));
+	memset(dict, 0, sizeof(dict));
 
 	qsort(items, nitems, sizeof(*items), cmpitems);
 
@@ -38,15 +72,10 @@ maximumBeauty(int **items, int nitems, int *mitems, int *queries, int nqueries, 
 	int *ap = answer;
 
 	for (int *qp = queries; qp != queries+nqueries; ++qp) {
-		int (*bucket)[2] = mem[*qp%NMEM];
-		if (bucket) {
-			for (int (*bp)[2] = bucket; *bp; ++bp) {
-//				printf("FOO\n");
-				if ((*bp)[0] == *qp) {
-					*(ap++) = (*bp)[1];
-					goto nextquery;
-				}
-			}
+		Entry **e = lookup(*qp);
+		if (*e) {
+			*(ap++) = (*e)->val;
+			goto nextquery;
 		}
 
 		// i is the smallest items[i] at which items[i][0] > *qp
@@ -63,15 +92,10 @@ maximumBeauty(int **items, int nitems, int *mitems, int *queries, int nqueries, 
 
 		int **ip = items + i - 1;
 		for (int j = i - 1; j >= 0; --j, --ip) {
-			int (*bucket)[2] = mem[(*ip)[0]%NMEM];
-			if (bucket) {
-				for (int (*bp)[2] = bucket; *bp; ++bp) {
-//					printf("BAR\n");
-					if ((*bp)[0] == (*ip)[0]) {
-						beauty = MAX(beauty, (*bp)[1]);
-						goto catchbeauty;
-					}
-				}
+			Entry **e = lookup((*ip)[0]);
+			if (*e) {
+				beauty = MAX(beauty, (*e)->val);
+				goto catchbeauty;
 			}
 
 			beauty = MAX(beauty, (*ip)[1]);
@@ -79,16 +103,8 @@ maximumBeauty(int **items, int nitems, int *mitems, int *queries, int nqueries, 
 
 	catchbeauty:
 
-		bucket = mem[*qp%NMEM];
-		if (!bucket)
-			bucket = mem[*qp%NMEM] = calloc(10, sizeof(*bucket));
-		int (*bp)[2] = bucket;
-		while ((*bp)[0]) {
-//			printf("BAZ\n");
-			++bp;
-		}
-		(*bp)[0] = *qp;
-		(*bp)[1] = beauty;
+		e = lookup(*qp);
+		*e = entryMake(*qp, beauty);
 
 		*(ap++) = beauty;
 
