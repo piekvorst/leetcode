@@ -99,6 +99,25 @@ wronganswer3(void)
 	printf("\n");
 }
 
+void
+wronganswer4(void)
+{
+	printf("main.c:/wronganswer4/\n");
+
+	int *arr[] = {
+		(int []){2, 9, 3},
+		(int []){5, 4, -4},
+		(int []){1, 7, 1},
+	};
+	int sum = maxMatrixSum(
+		arr, nelem(arr),
+		(int []){3, 3, 3}
+	); // 34
+
+	printf("sum: %d\n", sum);
+	printf("\n");
+}
+
 int
 main(void)
 {
@@ -107,6 +126,7 @@ main(void)
 	wronganswer1();
 	wronganswer2();
 	wronganswer3();
+	wronganswer4();
 
 	return 0;
 }

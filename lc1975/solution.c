@@ -22,7 +22,7 @@ maxMatrixSum(int **matrix, int rows, int *cols)
 
 			if (*cell < 0 && *cell > maxnegative) {
 				if (found)
-					sum += -maxnegative;
+					sum += 2 * -maxnegative;
 
 				maxnegative = *cell;
 				sum -= 2 * abs(*cell);
