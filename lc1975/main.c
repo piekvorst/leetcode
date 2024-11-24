@@ -61,12 +61,32 @@ wronganswer1(void)
 	printf("\n");
 }
 
+void
+wronganswer2(void)
+{
+	printf("main.c:/wronganswer2/\n");
+
+	int *arr[] = {
+		(int []){-3, 0, 0},
+		(int []){0, 0, 0},
+		(int []){0, 3, 2},
+	};
+	int sum = maxMatrixSum(
+		arr, nelem(arr),
+		(int []){3, 3, 3}
+	); // 8
+
+	printf("sum: %d\n", sum);
+	printf("\n");
+}
+
 int
 main(void)
 {
 	example1();
 	example2();
 	wronganswer1();
+	wronganswer2();
 
 	return 0;
 }

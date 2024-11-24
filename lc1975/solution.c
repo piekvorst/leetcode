@@ -14,7 +14,7 @@ maxMatrixSum(int **matrix, int rows, int *cols)
 		for (int *cell = *row; cell != *row+cols[0]; ++cell) {
 			sum += abs(*cell);
 
-			if (*cell < 0)
+			if (*cell <= 0)
 				++totalnegatives;
 
 			if (*cell < 0 && *cell > maxnegative) {
