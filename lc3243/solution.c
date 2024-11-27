@@ -10,7 +10,7 @@ struct node
 };
 typedef struct node Node;
 
-Node *globalqueue[2000000];
+Node *globalqueue[1000];
 
 Node *
 mknode(int val)
