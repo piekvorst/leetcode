@@ -1,3 +1,4 @@
+#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -24,6 +25,8 @@ mknode(int val)
 int
 bfs(Node **graph, int cities)
 {
+	bool seen[501] = {0};
+
 	Node **queue = globalqueue;
 	int nqueue = 0;
 
@@ -38,8 +41,11 @@ bfs(Node **graph, int cities)
 			if ((*qp)->val == cities-1)
 				return depth;
 
+			seen[(*qp)->val] = true;
+
 			for (Node **child = (*qp)->children; child != (*qp)->children+(*qp)->nchildren; ++child) {
-				queue[nqueue++] = *child;
+				if (!seen[(*child)->val])
+					queue[nqueue++] = *child;
 			}
 		}
 
