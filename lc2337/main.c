@@ -34,12 +34,24 @@ example3(void)
 	printf("\n");
 }
 
+void
+wronganswer1(void)
+{
+	printf("main.c:/wronganswer1/\n");
+
+	bool ok = canChange("____", "R_L_"); // 0
+
+	printf("ok: %d\n", ok);
+	printf("\n");
+}
+
 int
 main(void)
 {
 	example1();
 	example2();
 	example3();
+	wronganswer1();
 
 	return 0;
 }
