@@ -45,6 +45,17 @@ wronganswer1(void)
 	printf("\n");
 }
 
+void
+custom1(void)
+{
+	printf("main.c:/custom1/\n");
+
+	bool ok = canChange("_L", "L_"); // 1
+
+	printf("ok: %d\n", ok);
+	printf("\n");
+}
+
 int
 main(void)
 {
@@ -52,6 +63,7 @@ main(void)
 	example2();
 	example3();
 	wronganswer1();
+	custom1();
 
 	return 0;
 }

@@ -32,5 +32,5 @@ canChange(char *start, char *target)
 		++tp;
 	}
 
-	return true;
+	return !*sp && !*tp;
 }
