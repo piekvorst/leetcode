@@ -112,7 +112,7 @@ rtcontains(Rtnode *head, char *s)
 	// head->s is fully a prefix of s.
 	//
 	if (!head->s[i])
-		return head->last + rtcontains(head->children[s[i]], s+i);
+		return rtcontains(head->children[s[i]], s+i);
 
 	// s is fully a prefix of head->s.
 	if (!s[i])

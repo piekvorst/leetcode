@@ -65,6 +65,43 @@ wronganswer2(void)
 	printf("\n");
 }
 
+void
+wronganswer3(void)
+{
+	printf("main.c:/wronganswer3/\n");
+
+	char *words[] = {
+		"sxyjellhlh", "sxyjellhlh", "sxyjellhlh", "sxyjellhlh",
+		"sxyjellhlh", "sxyjellhlh", "sxyjellhlh", "sxyjellhlh",
+		"sxyjellhlh", "sxyjellhlh", "sxyjellhlh", "sxyjellhlh",
+		"sxyjellhlh", "sxyjellhlh", "sxyjellhlh", "sxyjellhlh",
+		"sxyjellhlh", "sxyjellhlh", "sxyjellhlh", "sxyjellhlh",
+		"sxyjellhlh", "sxyjellhlh", "sxyjellhlh", "sxyjellhlh",
+		"sxyjellhlh", "sxyjellhlh", "sxyjellhlh", "sxyjellhlh",
+		"sxyjellhlh", "sxyjellhlh", "sxyjellhlh", "sxyjellhlh",
+		"sxyjellhlh", "sxyjellhlh", "sxyjellhlh", "sxyjellhlh",
+		"sxyjellhlh", "sxyjellhlh", "sxyjellhlh", "sxyjellhlh",
+		"sxyjellhlh", "sxyjellhlh", "sxyjellhlh", "sxyjellhlh",
+		"sxyjellhlh", "sxyjellhlh", "sxyjellhlh", "sxyjellhlh",
+		"sxyjellhlh", "sxyjellhlh", "sxyjellhlh", "sxyjellhlh",
+		"sxyjellhlh", "sxyjellhlh", "sxyjellhlh", "sxyjellhlh",
+		"sxyjellhlh", "sxyjellhlh", "sxyjellhlh", "sxyjellhlh",
+		"sxyjellhlh", "sxyjellhlh", "sxyjellhlh", "vbx", "fsi",
+		"sxyjellhlh", "sxyjellhlh", "sxyjellhlh", "sxyjellhlh", "gqira",
+		"sxyjellhlh", "sxyjellhlh", "sxyjellhlh", "sxyjellhlh",
+		"sxyjellhlh", "sxyjellhlh", "sxyjellhlh", "sxyjellhlh",
+		"sxyjellhlh", "sxyjellhlh", "sxyjellhlh", "sxyjellhlh",
+		"sxyjellhlh", "sxyjellhlh", "sxyjellhlh", "sxyjellhlh",
+		"sxyjellhlh", "sxyjellhlh", "sxyjellhlh", "sxyjellhlh",
+		"sxyjellhlh", "sxyjellhlh", "sxyjellhlh", "sxyjellhlh",
+		"sxyjellhlh"
+	};
+	int n = prefixCount(words, nelem(words), "sxyjellhlh"); // 92
+
+	printf("n: %d\n", n);
+	printf("\n");
+}
+
 int
 main(void)
 {
@@ -72,6 +109,7 @@ main(void)
 	example2();
 	wronganswer1();
 	wronganswer2();
+	wronganswer3();
 
 	return 0;
 }
