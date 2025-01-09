@@ -29,11 +29,24 @@ example2(void)
 	printf("\n");
 }
 
+void
+wronganswer1(void)
+{
+	printf("main.c:/wronganswer1/\n");
+
+	char *words[] = {"lewsmb", "lewrydnve", "lewqqm", "lewec", "lewn", "lewb", "lewedb"};
+	int n = prefixCount(words, nelem(words), "lew"); // 7
+
+	printf("n: %d\n", n);
+	printf("\n");
+}
+
 int
 main(void)
 {
 	example1();
 	example2();
+	wronganswer1();
 
 	return 0;
 }
