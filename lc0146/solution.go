@@ -10,7 +10,7 @@ type LRUCache struct {
 }
 
 type node struct {
-	K, V          int
+	K, V       int
 	Prev, Next *node
 }
 
@@ -27,12 +27,10 @@ func (lru *LRUCache) Get(key int) int {
 		return -1
 	}
 
-	// if the found node is a tail, remove it
+	// if the found node is a tail and it's not a single-node list, remove it
 	//
-	if n == lru.Tail {
-		if lru.Tail.Prev != nil {
-			lru.Tail.Next = nil
-		}
+	if n == lru.Tail && lru.Tail.Prev != nil {
+		lru.Tail.Next = nil
 		lru.Tail = lru.Tail.Prev
 	}
 
@@ -111,9 +109,9 @@ func (lru *LRUCache) Put(key int, value int) {
 }
 
 func printlist(head *node) {
-	fmt.Printf("nil")
+	fmt.Printf("nil <-> ")
 	for n := head; n != nil; n = n.Next {
-		fmt.Printf(" <-> (%v:%v) <-> ", n.K, n.V)
+		fmt.Printf("(%v:%v) <-> ", n.K, n.V)
 	}
 	fmt.Printf("nil\n")
 }
