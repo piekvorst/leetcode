@@ -1,5 +1,7 @@
 package lc0146
 
+import "fmt"
+
 type LRUCache struct {
 	Cap  int
 	Dict map[int]*node
@@ -8,7 +10,7 @@ type LRUCache struct {
 }
 
 type node struct {
-	V          int
+	K, V          int
 	Prev, Next *node
 }
 
@@ -25,10 +27,13 @@ func (lru *LRUCache) Get(key int) int {
 		return -1
 	}
 
-	// track the tail
+	// if the found node is a tail, remove it
 	//
 	if n == lru.Tail {
-		lru.Tail = n.Prev
+		if lru.Tail.Prev != nil {
+			lru.Tail.Next = nil
+		}
+		lru.Tail = lru.Tail.Prev
 	}
 
 	// remove the node from its neighbors
@@ -64,11 +69,11 @@ func (lru *LRUCache) Put(key int, value int) {
 		return
 	}
 
-	// create a new node as a head
+	// create a new node
 	//
 	lru.Dict[key] = &node{
-		V:    value,
-		Next: lru.Head,
+		K: key,
+		V: value,
 	}
 
 	// adjust the tail
@@ -79,13 +84,19 @@ func (lru *LRUCache) Put(key int, value int) {
 
 	// adjust the old head
 	//
-	if lru.Head != nil {
+	if lru.Head == nil {
+		lru.Head = lru.Dict[key]
+	} else {
+
+		// make the new node a new head
+		//
+		lru.Dict[key].Next = lru.Head
 		lru.Head.Prev = lru.Dict[key]
+		lru.Head = lru.Dict[key]
 	}
-	lru.Head = lru.Dict[key]
 
 	if len(lru.Dict) > lru.Cap {
-		delete(lru.Dict, lru.Tail.V)
+		delete(lru.Dict, lru.Tail.K)
 
 		// make new tail
 		//
@@ -97,4 +108,12 @@ func (lru *LRUCache) Put(key int, value int) {
 		//
 		lru.Tail = lru.Tail.Prev
 	}
+}
+
+func printlist(head *node) {
+	fmt.Printf("nil")
+	for n := head; n != nil; n = n.Next {
+		fmt.Printf(" <-> (%v:%v) <-> ", n.K, n.V)
+	}
+	fmt.Printf("nil\n")
 }
