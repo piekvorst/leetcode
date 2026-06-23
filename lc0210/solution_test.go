@@ -30,4 +30,6 @@ func TestFindOrder(t *testing.T) {
 	f(t, "example3", 1, [][]int{}, [][]int{{0}})
 
 	f(t, "wronganswer1", 6, [][]int{{2, 3}, {1, 2}, {0, 1}, {0, 4}, {4, 5}, {5, 1}}, [][]int{{3, 2, 1, 5, 4, 0}})
+
+	f(t, "mle1", 3, [][]int{{1, 0}, {1, 2}, {0, 1}}, [][]int{{}})
 }
