@@ -1,7 +1,5 @@
 package lc0210
 
-import "slices"
-
 func findOrder(numCourses int, prerequisites [][]int) []int {
 	children := map[int][]int{}
 	parents := map[int][]int{}
@@ -10,33 +8,47 @@ func findOrder(numCourses int, prerequisites [][]int) []int {
 		parents[p[0]] = append(parents[p[0]], p[1])
 	}
 
-	q := []int{}
+	roots := []int{}
 	for i := 0; i < numCourses; i++ {
 		if parents[i] == nil {
-			q = append(q, i)
+			roots = append(roots, i)
 		}
+	}
+
+	weights := map[int]int{}
+
+	weight := 1
+	q := append([]int(nil), roots...)
+	for len(q) != 0 {
+		window := q
+		for _, course := range window {
+			if weight > weights[course] {
+				q = append(q, children[course]...)
+				weights[course] = weight
+			}
+		}
+
+		q = q[len(window):]
+		weight++
 	}
 
 	out := []int{}
 
+	weight = 1
+	q = append([]int(nil), roots...)
 	for len(q) != 0 {
 		window := q
 		for _, course := range window {
-			out = append(out, course)
-			q = append(q, children[course]...)
+			if weight == weights[course] {
+				q = append(q, children[course]...)
+				out = append(out, course)
+				weights[course] = 0
+			}
 		}
+
 		q = q[len(window):]
+		weight++
 	}
 
-	out2 := []int{}
-	seen := map[int]bool{}
-	for _, course := range slices.Backward(out) {
-		if !seen[course] {
-			out2 = append(out2, course)
-			seen[course] = true
-		}
-	}
-
-	slices.Reverse(out2)
-	return out2
+	return out
 }
