@@ -62,7 +62,7 @@ func (lru *LRUCache) Put(key int, value int) {
 
 		// adjust the updated node's position
 		//
-		lru.Get(value)
+		lru.Get(key)
 
 		return
 	}

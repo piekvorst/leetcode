@@ -77,4 +77,26 @@ func TestLRUCache(t *testing.T) {
 			t.Fatalf("unexpected: %v", got)
 		}
 	})
+
+	t.Run("wronganswer4", func(t *testing.T) {
+		lru := Constructor(2)
+		lru.Put(2, 1)
+		lru.Put(3, 2)
+		if got := lru.Get(3); got != 2 {
+			t.Fatalf("unexpected: %v", got)
+		}
+		if got := lru.Get(2); got != 1 {
+			t.Fatalf("unexpected: %v", got)
+		}
+		lru.Put(4, 3)
+		if got := lru.Get(2); got != 1 {
+			t.Fatalf("unexpected: %v", got)
+		}
+		if got := lru.Get(3); got != -1 {
+			t.Fatalf("unexpected: %v", got)
+		}
+		if got := lru.Get(4); got != 3 {
+			t.Fatalf("unexpected: %v", got)
+		}
+	})
 }
