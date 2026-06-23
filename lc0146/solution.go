@@ -34,24 +34,27 @@ func (lru *LRUCache) Get(key int) int {
 		lru.Tail = lru.Tail.Prev
 	}
 
-	// remove the node from its neighbors
-	//
-	if n.Prev != nil {
-		n.Prev.Next = n.Next
-	}
-	if n.Next != nil {
-		n.Next.Prev = n.Prev
-	}
+	if n != lru.Head {
 
-	// make the node a new head
-	//
-	n.Prev = nil
-	n.Next = lru.Head
+		// remove the node from its neighbors
+		//
+		if n.Prev != nil {
+			n.Prev.Next = n.Next
+		}
+		if n.Next != nil {
+			n.Next.Prev = n.Prev
+		}
 
-	// adjust the old head
-	//
-	lru.Head.Prev = n
-	lru.Head = n
+		// make the node a new head
+		//
+		n.Prev = nil
+		n.Next = lru.Head
+
+		// adjust the old head
+		//
+		lru.Head.Prev = n
+		lru.Head = n
+	}
 
 	return n.V
 }
