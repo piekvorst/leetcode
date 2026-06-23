@@ -36,6 +36,12 @@ func findOrder(numCourses int, prerequisites [][]int) []int {
 		}
 	}
 
+	for course := 0; course < numCourses; course++ {
+		if (children[course] != nil || parents[course] != nil) && weights[course] == 0 {
+			return nil
+		}
+	}
+
 	out := []int{}
 
 	weight = 1
