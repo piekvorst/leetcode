@@ -1,24 +1,33 @@
 package lc0210
 
 func findOrder(ncourses int, prerequisites [][]int) []int {
-	children := map[int][]int{}
-	parents := map[int][]int{}
+	children := make(map[int][]int, ncourses)
+	parents := make(map[int][]int, ncourses)
 	for _, p := range prerequisites {
+		if children[p[1]] == nil {
+			children[p[1]] = make([]int, 0, ncourses)
+		}
+		if parents[p[0]] == nil {
+			parents[p[0]] = make([]int, 0, ncourses)
+		}
+
 		children[p[1]] = append(children[p[1]], p[0])
 		parents[p[0]] = append(parents[p[0]], p[1])
 	}
 
-	roots := []int{}
+	roots := make([]int, 0, ncourses)
 	for i := 0; i < ncourses; i++ {
 		if parents[i] == nil {
 			roots = append(roots, i)
 		}
 	}
 
-	weights := map[int]int{}
+	weights := make(map[int]int, ncourses)
 
+	q := make([]int, len(roots))
+	copy(q, roots)
 	weight := 1
-	q := append([]int(nil), roots...)
+
 	for len(q) != 0 {
 		window := q
 		for _, course := range window {
@@ -28,9 +37,11 @@ func findOrder(ncourses int, prerequisites [][]int) []int {
 			}
 		}
 
-		q = q[len(window):]
-		weight++
+		nextwin := q[len(window):]
+		copy(q, nextwin)
+		q = q[:len(nextwin)]
 
+		weight++
 		if weight > ncourses+1 {
 			return nil
 		}
@@ -42,10 +53,12 @@ func findOrder(ncourses int, prerequisites [][]int) []int {
 		}
 	}
 
-	out := []int{}
+	out := make([]int, 0, ncourses)
 
 	weight = 1
-	q = append([]int(nil), roots...)
+	q = make([]int, len(roots))
+	copy(q, roots)
+
 	for len(q) != 0 {
 		window := q
 		for _, course := range window {
@@ -56,7 +69,9 @@ func findOrder(ncourses int, prerequisites [][]int) []int {
 			}
 		}
 
-		q = q[len(window):]
+		nextwin := q[len(window):]
+		copy(q, nextwin)
+		q = q[:len(nextwin)]
 		weight++
 	}
 
