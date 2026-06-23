@@ -15,8 +15,6 @@ func findOrder(numCourses int, prerequisites [][]int) []int {
 		}
 	}
 
-	visited := map[[2]int]bool{}
-
 	weights := map[int]int{}
 
 	weight := 1
@@ -25,19 +23,17 @@ func findOrder(numCourses int, prerequisites [][]int) []int {
 		window := q
 		for _, course := range window {
 			if weight > weights[course] {
-				for _, c := range children[course] {
-					if visited[[2]int{course, c}] {
-						return nil
-					}
-					q = append(q, c)
-					visited[[2]int{course, c}] = true
-				}
+				q = append(q, children[course]...)
 				weights[course] = weight
 			}
 		}
 
 		q = q[len(window):]
 		weight++
+
+		if weight > numCourses+1 {
+			return nil
+		}
 	}
 
 	out := []int{}
