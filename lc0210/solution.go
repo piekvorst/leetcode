@@ -1,6 +1,6 @@
 package lc0210
 
-func findOrder(numCourses int, prerequisites [][]int) []int {
+func findOrder(ncourses int, prerequisites [][]int) []int {
 	children := map[int][]int{}
 	parents := map[int][]int{}
 	for _, p := range prerequisites {
@@ -9,7 +9,7 @@ func findOrder(numCourses int, prerequisites [][]int) []int {
 	}
 
 	roots := []int{}
-	for i := 0; i < numCourses; i++ {
+	for i := 0; i < ncourses; i++ {
 		if parents[i] == nil {
 			roots = append(roots, i)
 		}
@@ -31,12 +31,12 @@ func findOrder(numCourses int, prerequisites [][]int) []int {
 		q = q[len(window):]
 		weight++
 
-		if weight > numCourses+1 {
+		if weight > ncourses+1 {
 			return nil
 		}
 	}
 
-	for course := 0; course < numCourses; course++ {
+	for course := 0; course < ncourses; course++ {
 		if (children[course] != nil || parents[course] != nil) && weights[course] == 0 {
 			return nil
 		}

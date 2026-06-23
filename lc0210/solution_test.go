@@ -6,13 +6,13 @@ import (
 )
 
 func TestFindOrder(t *testing.T) {
-	f := func(t *testing.T, name string, numCourses int, prerequisites [][]int, want [][]int) {
+	f := func(t *testing.T, name string, ncourses int, prerequisites [][]int, want [][]int) {
 		t.Helper()
 
 		t.Run(name, func(t *testing.T) {
 			t.Helper()
 
-			got := findOrder(numCourses, prerequisites)
+			got := findOrder(ncourses, prerequisites)
 			for _, w := range want {
 				if slices.Equal(got, w) {
 					return
