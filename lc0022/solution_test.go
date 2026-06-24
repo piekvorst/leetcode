@@ -12,7 +12,15 @@ func TestGenerateParenthesis(t *testing.T) {
 		t.Run(name, func(t *testing.T) {
 			t.Helper()
 
-			if got := generateParenthesis(n); !slices.Equal(got, want) {
+			got := generateParenthesis(n)
+
+			gotcopy := slices.Clone(got)
+			wantcopy := slices.Clone(want)
+
+			slices.Sort(gotcopy)
+			slices.Sort(wantcopy)
+
+			if !slices.Equal(gotcopy, wantcopy) {
 				t.Errorf("unexpected: %v", got)
 			}
 		})
@@ -21,4 +29,26 @@ func TestGenerateParenthesis(t *testing.T) {
 	f(t, "example1", 3, []string{"((()))", "(()())", "(())()", "()(())", "()()()"})
 
 	f(t, "example2", 1, []string{"()"})
+
+	f(
+		t,
+		"wronganswer1",
+		4,
+		[]string{
+
+			// 1 parent
+			"(((())))", "((()()))", "((())())", "(()(()))", "(()()())",
+
+			// 2 parents
+			"((()))()", "(()())()", "(())(())", "()((()))", "()(()())",
+
+			// 3 parents
+			"(())()()",
+			"()(())()",
+			"()()(())",
+
+			// 4 parents
+			"()()()()",
+		},
+	)
 }
