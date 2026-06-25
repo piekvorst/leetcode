@@ -14,14 +14,14 @@ func TestGenerateParenthesis(t *testing.T) {
 
 			got := generateParenthesis(n)
 
-			gotcopy := slices.Clone(got)
-			wantcopy := slices.Clone(want)
+			gotsorted := slices.Clone(got)
+			wantsorted := slices.Clone(want)
 
-			slices.Sort(gotcopy)
-			slices.Sort(wantcopy)
+			slices.Sort(gotsorted)
+			slices.Sort(wantsorted)
 
-			if !slices.Equal(gotcopy, wantcopy) {
-				t.Errorf("unexpected value: %v\nwanted: %v", gotcopy, wantcopy)
+			if !slices.Equal(gotsorted, wantsorted) {
+				t.Errorf("unexpected value: %v\nwanted: %v", gotsorted, wantsorted)
 			}
 		})
 	}
