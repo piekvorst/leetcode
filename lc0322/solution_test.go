@@ -22,4 +22,6 @@ func TestCoinChange(t *testing.T) {
 	f(t, "example3", []int{1}, 0, 0)
 
 	f(t, "tle1", []int{1, 2, 5}, 100, 20)
+
+	f(t, "tle2", []int{186, 419, 83, 408}, 6249, 20)
 }
