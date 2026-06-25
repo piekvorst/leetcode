@@ -21,7 +21,7 @@ func TestGenerateParenthesis(t *testing.T) {
 			slices.Sort(wantcopy)
 
 			if !slices.Equal(gotcopy, wantcopy) {
-				t.Errorf("unexpected: %v", got)
+				t.Errorf("unexpected value: %v\nwanted: %v", gotcopy, wantcopy)
 			}
 		})
 	}
