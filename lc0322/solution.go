@@ -13,7 +13,7 @@ func coinChange(coins []int, amount int) int {
 		if sum > amount {
 			return
 		}
-		if mem[sum] != 0 && mem[sum] < ncoins {
+		if mem[sum] != 0 && mem[sum] <= ncoins {
 			return
 		}
 		if sum == amount {
@@ -41,13 +41,5 @@ func coinChange(coins []int, amount int) int {
 		return *out
 	} else {
 		return -1
-	}
-}
-
-func abs(n int) int {
-	if n < 0 {
-		return -n
-	} else {
-		return n
 	}
 }
