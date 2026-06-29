@@ -7,17 +7,15 @@ typedef struct rtnode Rtnode;
 struct rtnode
 {
 	char *s;
-	int count;
 	Rtnode *children[128];
 };
 
 Rtnode *
-rtnew(char *s, int count)
+rtnew(char *s)
 {
 	Rtnode *n;
 	n = calloc(1, sizeof(*n));
 	n->s = strdup(s);
-	n->count = count;
 	return n;
 }
 
@@ -28,14 +26,13 @@ rtins(Rtnode **headp, char *s)
 	// That is, head->s[0] == s[0].
 
 	if (!*headp) {
-		*headp = rtnew(s, 1);
+		*headp = rtnew(s);
 		return;
 	}
 
 	Rtnode *head = *headp;
 
 	if (0 == strcmp(head->s, s)) {
-		head->count++;
 		return;
 	}
 
@@ -54,23 +51,17 @@ rtins(Rtnode **headp, char *s)
 
 	// Keep matching part, make the rest its child.
 	//
-	Rtnode *subtree = rtnew(head->s + i, head->count);
-	head->count = 0;
+	Rtnode *subtree = rtnew(head->s + i);
 	for (int i = 0; i < 128; ++i) {
 		subtree->children[i] = head->children[i];
 		head->children[i] = NULL;
 	}
 	head->children[head->s[i]] = subtree;
 
-	if (!s[i]) {
-		// s is fully a prefix of head->s.
-
-		head->count = 1;
-	} else {
+	if (s[i]) {
 		// s is partly a prefix of head->s.
 
-		head->count = 0;
-		head->children[s[i]] = rtnew(s + i, 1);
+		head->children[s[i]] = rtnew(s + i);
 	}
 
 	// Only keep matching part of the string.
@@ -104,27 +95,12 @@ rtprefix(Rtnode *head, char *s)
 	return !s[i];
 }
 
-void
-rtdbg(struct rtnode *head, int shift)
-{
-        if (!head)
-                return;
-        printf("%*s/", shift, "");
-        if (head->s[0] != '/')
-                printf("%s", head->s);
-        if (head->count > 0)
-                printf(".");
-        printf("\n");
-        for (int i = 0; i < 128; i++)
-                rtdbg(head->children[i], shift + 4);
-}
-
 int
 numOfStrings(char **patterns, int npatterns, char *word)
 {
 	int out = 0;
 
-	Rtnode *root = rtnew("/", 0);
+	Rtnode *root = rtnew("/");
 
 	for (char *wp = word; *wp; ++wp)
 		rtins(&root->children[*wp], wp);
