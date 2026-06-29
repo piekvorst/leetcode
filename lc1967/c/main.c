@@ -41,12 +41,34 @@ example3(void)
 	printf("\n");
 }
 
+void
+wronganswer1(void)
+{
+	char *patterns[] = {
+		"glgpqusg",
+		"qsyrgdelg",
+		"akcsg",
+		"e",
+		"fnmi",
+		"gzqsyrgdelg",
+		"lapwypxrmaydjr",
+		"s",
+		"iwig",
+	};
+	int got = numOfStrings(patterns, nelem(patterns), "numiwigzqsyrgdelgxs"); // 5
+
+	printf("main.c:/wronganswer1/\n");
+	printf("%d\n", got);
+	printf("\n");
+}
+
 int
 main(void)
 {
 	example1();
 	example2();
 	example3();
+	wronganswer1();
 
 	return 0;
 }
