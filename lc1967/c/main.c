@@ -46,13 +46,26 @@ wronganswer1(void)
 {
 	char *patterns[] = {
 		"glgpqusg",
+
+		// contains
 		"qsyrgdelg",
+
 		"akcsg",
+
+		// contains
 		"e",
+
 		"fnmi",
+
+		// contains
 		"gzqsyrgdelg",
+
 		"lapwypxrmaydjr",
+
+		// contains
 		"s",
+
+		// contains
 		"iwig",
 	};
 	int got = numOfStrings(patterns, nelem(patterns), "numiwigzqsyrgdelgxs"); // 5

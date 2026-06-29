@@ -101,9 +101,7 @@ rtprefix(Rtnode *head, char *s)
 	if (!head->s[i])
 		return rtprefix(head->children[s[i]], s+i);
 
-	// s is either fully (!s[i]) or partly a prefix of head->s.
-	//
-	return true;
+	return !s[i];
 }
 
 void
