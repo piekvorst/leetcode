@@ -13,3 +13,4 @@ $f = function(string $name, string $s, int $want) {
 $f('example1', 'abcabcbb', 3);
 $f('example2', 'bbbbb', 1);
 $f('example3', 'pwwkew', 3);
+$f('wronanswer1', 'ccbbcc', 2);

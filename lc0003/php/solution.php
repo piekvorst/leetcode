@@ -11,10 +11,11 @@ class Solution
         $right = 0;
 
         while ($right < strlen($s)) {
-            while ($dict[$s[$right]] > 0)
-                $dict[$s[$left++]]--;
+            if (isset($dict[$s[$right]]))
+                $left = $dict[$s[$right]] + 1;
 
-            $dict[$s[$right++]]++;
+            $dict[$s[$right]] = $right;
+            $right++;
 
             $len = max($len, $right - $left);
         }
