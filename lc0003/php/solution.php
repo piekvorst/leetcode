@@ -12,12 +12,14 @@ class Solution
 
         while ($right < strlen($s)) {
             if (isset($dict[$s[$right]]))
-                $left = $dict[$s[$right]] + 1;
+                $left = max($left, $dict[$s[$right]] + 1);
+
+            // invariant: s on [left; right] is unique
+
+            $len = max($len, $right - $left + 1);
 
             $dict[$s[$right]] = $right;
             $right++;
-
-            $len = max($len, $right - $left);
         }
 
         return $len;
