@@ -74,7 +74,7 @@ minimumMountainRemovals(int *arr, int narr)
 	buf = calloc(narr, sizeof(*buf));
 
 	int trykeep = dfs(arr, narr, buf, 0, 0, 0, true);
-	int tryrm = dfs(arr, narr, buf, 0, 0, 0, true);
+	int tryrm = dfs(arr, narr, buf, 0, 0, 0, false);
 
 	if (trykeep == -1)
 		return tryrm;
