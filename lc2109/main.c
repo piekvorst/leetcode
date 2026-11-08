@@ -35,11 +35,27 @@ example2(void)
 	printf("\n");
 }
 
+void
+example3(void)
+{
+	printf("main.c:/example3/\n");
+
+	int spaces[] = {0, 1, 2, 3, 4, 5, 6};
+	char *withspaces = addSpaces(
+		"spacing",
+		spaces, nelem(spaces)
+	); // " s p a c i n g"
+
+	printf("%s\n", withspaces);
+	printf("\n");
+}
+
 int
 main(void)
 {
 	example1();
 	example2();
+	example3();
 
 	return 0;
 }
