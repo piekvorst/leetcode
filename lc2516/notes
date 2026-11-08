@@ -1,0 +1,41 @@
+attempt1
+
+	This is a proof why "reduce left until some character is missing,
+	reduce right to restore the balance" does not work.
+
+	aabaaaacaab[c]lr	a=8	b=2	c=2	k=2
+	aabaaaacaa[b]l[c]r	a=8	b=2	c=1	k=2	--c	--left
+	aabaaaacaa[b]lrc	a=8	b=2	c=2	k=2	++c	--right
+	aabaaaaca[a]l[b]rc	a=8	b=1	c=2	k=2	--b	--left
+	aabaaaaca[a]lrbrc	a=8	b=0	c=2	k=2	--b	--right
+
+	Track it. See v1.
+
+attempt2
+
+	[aab]aaaa[caabc]
+
+	Find a substring with a=4 b=0 c=0.
+
+	Overlooked is a=4. For totala-k = 6.
+
+	Track this version. See leetcode.
+
+	printf("totala-k=%d totalb-k=%d totalc-k=%d\n", totala-k, totalb-k, totalc-k);
+	printf("xminutes=%d left=%ld right=%ld\n", minutes, left-s, right-s);
+
+attempt3
+
+	attempt1 is valid. left=right breaks everything.
+
+	[]aa[baaaacaabc]
+	[a]a[baaaacaabc]
+	[aa][baaaacaabc]
+	[aab]aaaa[caabc]
+	[aaba]aaa[caabc]
+	[aabaa]aa[caabc]
+	[aabaaa]a[caabc]
+	[aabaaaa][caabc]
+	[aabaaaac]aa[bc]
+
+	Insight: right always goes to the right.

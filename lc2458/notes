@@ -1,0 +1,11 @@
+Once a node is removed, it goes up. Restoring a node must follow
+the same procedure.
+
+To "remove" a node, Lheight = Rheight = 0.
+
+To re-evaluate the height of a given node, it must pre-know
+heights of both subtrees.
+
+Start building extnodes from the ground up. Reverse bfs.
+
+If the node is nil, it's Lheight and Rheight must evaluate to 0.
